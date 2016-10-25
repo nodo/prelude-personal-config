@@ -1,13 +1,24 @@
 ;; Theme is preloded
-
-
 (prelude-require-packages '(multiple-cursors
-                            grizzl
                             fill-column-indicator
                             smartscan
                             restclient
+                            restclient-helm
+                            helm-projectile
                             persp-projectile
                             ))
+
+;; Projectile
+(require 'helm-projectile)
+(helm-projectile-on)
+(setq projectile-enable-caching nil)
+(setq projectile-completion-system 'helm)
+(setq projectile-indexing-method 'alien)
+(global-set-key (kbd "M-p") 'projectile-find-file)
+
+;;persp-projectile
+(require 'persp-projectile)
+(persp-mode)
 
 ;; Mac OS X specific
 (setq mac-command-modifier 'meta)
@@ -106,15 +117,6 @@
 
 ;; smartscan
 (smartscan-mode 1)
-;;      (global-set-key (kb-))
-
-;; Projectile configuration
-(setq projectile-enable-caching nil)
-(setq projectile-indexing-method 'alien)
-(setq projectile-completion-system 'grizzl)
-(global-set-key (kbd "M-p") 'projectile-find-file)
-
-(global-set-key (kbd "M-p") 'projectile-find-file)
 
 ;; I don't like these
 (global-unset-key (kbd "C-o"))
@@ -122,6 +124,6 @@
 ;; restclient-mode
 (add-to-list 'auto-mode-alist '("\\.restclient\\'" . restclient-mode))
 
-;;persp-projectile
-(require 'persp-projectile)
-(persp-mode)
+;; mocha config
+(eval-after-load 'js2-mode
+  '(define-key js2-mode-map (kbd "M-.") 'mocha-test-at-point))
