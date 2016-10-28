@@ -8,6 +8,10 @@
                             persp-projectile
                             ))
 
+;; helm-gtags
+;; ggtags
+
+
 ;; Projectile
 (require 'helm-projectile)
 (helm-projectile-on)
@@ -104,7 +108,7 @@
 (define-key prelude-mode-map (kbd "M-o") nil)
 (global-set-key (kbd "M-o") 'ace-window)
 
-(global-unset-key (kbd "C-x o"))
+(global-set-key (kbd "C-x o") 'other-window)
 
 ;; smartparens default
 (define-key smartparens-mode-map (kbd "C-<right>") 'sp-forward-slurp-sexp)
@@ -126,4 +130,7 @@
 
 ;; mocha config
 (eval-after-load 'js2-mode
-  '(define-key js2-mode-map (kbd "M-.") 'mocha-test-at-point))
+  '(define-key js2-mode-map (kbd "C-x C-.") 'mocha-test-at-point))
+
+;; makes ggtags polite
+(setq ggtags-enable-navigation-keys nil)
