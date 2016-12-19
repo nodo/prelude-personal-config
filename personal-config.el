@@ -6,12 +6,10 @@
                             restclient-helm
                             helm-projectile
                             persp-projectile
+                            helm-gtags
+                            ggtags
+                            osx-clipboard
                             ))
-
-;; helm-gtags
-;; ggtags
-
-
 ;; Projectile
 (require 'helm-projectile)
 (helm-projectile-on)
