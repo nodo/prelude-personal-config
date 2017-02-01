@@ -9,6 +9,7 @@
                             helm-gtags
                             ggtags
                             osx-clipboard
+                            org-bullets
                             ))
 ;; Projectile
 (require 'helm-projectile)
@@ -150,3 +151,42 @@
       (setq-local flycheck-javascript-eslint-executable eslint))))
 
 (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+
+;; org-mode stuff
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(setq org-ellipsis "⤵")
+(setq org-directory "~/org")
+(setq org-index-file "~/org/index.org")
+(setq org-archive-location (concat "~/org/archive.org" "::* From %s"))
+(setq org-agenda-files (list org-index-file))
+
+;; https://github.com/hrs/dotfiles/blob/master/emacs.d/configuration.org
+(defun hrs/mark-done-and-archive ()
+  "Mark the state of an org-mode item as DONE and archive it."
+  (interactive)
+  (org-todo 'done)
+  (org-archive-subtree))
+
+(setq org-log-done 'time)
+(setq org-capture-templates
+      '(("b" "Ideas"
+         entry
+         (file  "~/org/ideas.org")
+         "* TODO %?\n")
+
+        ("l" "Today I Learned..."
+         entry
+         (file+datetree "~/org/til.org")
+         "* %?\n")
+
+        ("r" "Reading"
+         checkitem
+         (file "to-read.org"))
+
+        ("t" "Todo"
+         entry
+         (file+headline org-index-file "Tasks")
+         "* TODO %?\n")))
+
+;; (define-key org-mode-map (kbd "C-c C-x C-s") 'hrs/mark-done-and-archive)
+(define-key global-map (kbd "C-c c c") 'org-capture)
