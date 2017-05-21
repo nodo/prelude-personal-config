@@ -152,6 +152,11 @@
 
 (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
+
+;; '((ruby-mode . ((eval . (setq flycheck-command-wrapper-function
+;;                                (lambda (command)
+;;                                  (append '("bundle" "exec") command)))))))
+
 ;; org-mode stuff
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 (setq org-ellipsis "⤵")
